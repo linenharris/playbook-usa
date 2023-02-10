@@ -1,0 +1,24 @@
+---
+- name: Update ub servers
+  hosts: u2
+  become: yes
+  
+  tasks:
+  - name: Update apt
+    apt:
+      update_cache: true
+
+  - name: Install Apache2 on u2
+    package:
+      name: apache2
+      state: present
+
+  - name: Ensure apache2 is started
+    service:
+      name: apache2
+      state: started
+
+  - name: Ensure apache2 is enabled
+    service:
+      name: apache2
+      enabled: yes    

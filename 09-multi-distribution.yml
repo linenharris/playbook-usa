@@ -1,0 +1,46 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+  
+  tasks:
+  - name: Install httpd
+    package:
+      name: httpd
+      state: present
+    when: ansible_distribution == "Amazon"
+
+  - name: Ensure httpd is started
+    service:
+      name: httpd
+      state: started
+    when: ansible_distribution == "Amazon"
+
+  - name: Ensure httpd is enabled
+    service:
+      name: httpd
+      enabled: yes
+    when: ansible_distribution == "Amazon"
+
+  - name: Update apt
+    apt:
+      update_cache: true
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install Apache2 on u2
+    package:
+      name: apache2
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Ensure apache2 is started
+    service:
+      name: apache2
+      state: started
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Ensure apache2 is enabled
+    service:
+      name: apache2
+      enabled: yes
+    when: ansible_distribution == "Ubuntu"

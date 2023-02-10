@@ -1,0 +1,31 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes
+  
+  tasks:
+  - name: Install git
+    package:
+      name: git
+      state: present
+
+  
+- name: Deploy code on web server
+  hosts: db
+  become: yes
+
+  tasks:
+   - name: deploy application on db servers
+     git:
+      dest: /var/www/html
+      repo: https://github.com/linenharris/ecomm.git
+
+- name: Deploy code on web server
+  hosts: app
+  become: yes
+
+  tasks:
+   - name: deploy application on web servers
+     git:
+      dest: /var/www/html
+      repo: https://github.com/linenharris/food.git

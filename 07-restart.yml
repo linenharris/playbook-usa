@@ -1,0 +1,14 @@
+---
+- name: Update all servers
+  hosts: all
+  become: yes  
+  
+  tasks:
+  - name: Ensure httpd is restarted.
+    service:
+      name: httpd
+      state: restarted  
+   
+   
+       
+       
